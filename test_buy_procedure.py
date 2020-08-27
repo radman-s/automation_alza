@@ -64,9 +64,8 @@ print(f'insurance:        {insurance}')
 print(f'protection glass: {glass}')
 print(f'calculate total:  {all}')
 print(f'price basked:     {ttl1}{checkmark}')
-
 browser.quit()
-
+print('test passed')
 
 
 
