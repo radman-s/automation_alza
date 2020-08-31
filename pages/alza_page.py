@@ -112,6 +112,54 @@ class AlzaPage(BasePage):
         locator = Locator(By.CSS_SELECTOR, 'span[id="price"]')
         return BaseElement(driver=self.driver, locator=locator)
 
+    # apply for job in QA
+    @property
+    def careers(self):
+        locator = Locator(By.CSS_SELECTOR, 'a[href="/kariera"]')
+        return BaseElement(driver=self.driver, locator=locator)
 
+    @property
+    def it(self):
+        locator = Locator(By.XPATH, '(//img[@src="https://i.alza.cz/foto/JobPositions/orig/e6ff1547-8157-405a-8f8f-ab06228b4bc2.jpg"])[3]')
+        return BaseElement(driver=self.driver, locator=locator)
 
+    @property
+    def qa(self):
+        locator = Locator(By.XPATH, '//h3[text()="Quality Assurance"]')
+        return BaseElement(driver=self.driver, locator=locator)
+
+    @property
+    def name(self):
+        locator = Locator(By.CSS_SELECTOR, 'input[placeholder="Jan Novák"]')
+        return BaseElement(driver=self.driver, locator=locator)
+
+    @property
+    def email(self):
+        locator = Locator(By.CSS_SELECTOR, 'input[placeholder="jan@novak.cz"]')
+        return BaseElement(driver=self.driver, locator=locator)
+
+    @property
+    def phone(self):
+        locator = Locator(By.CSS_SELECTOR, 'input[placeholder="+420 123 456 789"]')
+        return BaseElement(driver=self.driver, locator=locator)
+
+    @property
+    def link(self):
+        locator = Locator(By.CSS_SELECTOR, 'input[placeholder="https://cz.linkedin.com/company/alza-cz"]')
+        return BaseElement(driver=self.driver, locator=locator)
+
+    @property
+    def cover_letter(self):
+        locator = Locator(By.CSS_SELECTOR, 'textarea[id="letter"]')
+        return BaseElement(driver=self.driver, locator=locator)
+
+    @property
+    def upload_cv(self):
+        locator = Locator(By.ID, 'cv')
+        return BaseElement(driver=self.driver, locator=locator)
+
+    @property
+    def send(self):
+        locator = Locator(By.CSS_SELECTOR, 'button[type="submit"]')
+        return BaseElement(driver=self.driver, locator=locator)
 

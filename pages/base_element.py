@@ -42,3 +42,5 @@ class BaseElement(object):
         name = self.web_element.text[16:]
         return name
 
+    def upload(self, path):
+        self.web_element.send_keys(path)
