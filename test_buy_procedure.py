@@ -9,63 +9,54 @@ ap = AlzaPage(driver=browser)
 checkmark = '✓'
 # test start
 ap.go()
+# go to mobile phones
 ap.mobile_phones.move_to()
-
+# click Iphone 11 pro link and get the name price
 ap.iphone11pro_link.click()
-# get first name and price
-name1 = ap.product_name1.text()
-# with dph
-price1 = ap.product_price1.format_price()
-# no dph
-no_dph = ap.product_price_nodph.format_price()
-# calculate dph
-my_dph = count_dph(no_dph)
-round_dph = round(float(my_dph))
+ip_name1 = ap.product1.text
+ip_price1 = ap.price_product1.format_price()
 
-print(f'price with dph:   {price1}')
-print(f'price no dph:     {no_dph}')
-print(f'calculate dph:    {round_dph}{checkmark}')
-# validate dph is calculated correctly
-assert str(price1) == str(round_dph)
+# go to product's page, get name and price and price excl.vat
+ap.product1.click()
+ip_name2 = ap.product_name.text
+ip_price2 = ap.product_price.format_price()
+exvat_price = ap.product1_exc_vat.format_price()
+assert ip_price1 == ip_price2
+# calculate vat
+my_vat = count_dph(exvat_price)
 
-ap.iphone11pro_pic.click()
-# get second name and price
-name2 = ap.product_name2.text()
-price2 = ap.product_price2.format_price()
-# validate product's name and price corresponds
-assert name1 == name2
-assert str(price1) == str(price2)
-# select case checkbox and get price
-ap.case_check.click()
-case = ap.case_price.format_price()
-# select warranty checkbox and get price
-ap.warranty_check.click()
-warranty = ap.warranty_price.format_price()
-# select insurance checkbox and get price
-ap.insurance_check.click()
-insurance = ap.insurance_price.format_price()
-# select protection glass checkbox and get price
-ap.protect_glass_price.click()
-glass = ap.protect_glass_price.format_price()
-# calculate total price with all the items included
-all = int(warranty) + int(insurance) + int(glass) + int(my_dph) + int(case)
-
-ap.protect_glass_button.click()
-# proceed to the shopping basked
-ap.buy_button.click()
-ap.basked.click()
-# get total price
-ttl1 = ap.total_price.format_price()
-# validate correct total price
-assert str(all) == str(ttl1)
-print(f'case:             {case}')
-print(f'waranty:          {warranty}')
-print(f'insurance:        {insurance}')
-print(f'protection glass: {glass}')
-print(f'calculate total:  {all}')
-print(f'price basked:     {ttl1}{checkmark}')
-browser.quit()
+# select all the additional items and get price
+ap.checkbox_1.click()
+price_item1 = ap.price_checkbox_1.format_price()
+ap.checkbox_2.click()
+price_item2 = ap.price_checkbox_2.format_price()
+ap.checkbox_3.click()
+price_item3 = ap.price_checkbox_3.format_price()
+ap.checkbox_4.click()
+price_item4 = ap.price_checkbox_4.format_price()
+# accept protection glass warning dialog
+ap.glass_dialog.click()
+# go to proceed page and get the name
+ap.add_to_card.click()
+ip_name3 = ap.product_name_checkout.format_name()
+# go to basket and get the name
+ap.proceed_checkout.click()
+ip_name4 = ap.product_name_basket.format_name()
+# compare all product names through out the procedure
+assert ip_name1 == ip_name2 == ip_name3 == ip_name4
+# get total price using calculated vat tax for the main item
+my_total = int(my_vat) + int(price_item1) + int(price_item2) + int(price_item3) + int(price_item4)
+# get total price with vat and without vat
+browser.refresh()
+ttl_vat = ap.total_vat.format_price()
+# validate correct price with vat calculation on the main item
+assert str(ttl_vat) == str(my_total)
+print(f'expected total price: {my_total}')
+print(f'real total price:     {ttl_vat} {checkmark}')
 print('test passed')
+browser.quit()
+
+
 
 
 

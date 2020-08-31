@@ -24,6 +24,7 @@ class BaseElement(object):
         self.web_element.send_keys(text)
         return None
 
+    @property
     def text(self):
         text = self.web_element.text
         return text
@@ -37,4 +38,7 @@ class BaseElement(object):
         price = self.web_element.text[:-2]
         return price.replace(' ', '')
 
+    def format_name(self):
+        name = self.web_element.text[16:]
+        return name
 
